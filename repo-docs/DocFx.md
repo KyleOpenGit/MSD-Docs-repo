@@ -127,7 +127,16 @@ docfx init
 다음과같은 구조가 됩니다:
 ![docfx init 이후 폴더구조](./img/docfx-init-after.png)
 
-### toc.yml
+git root가아닌, 다른 곳 DocFX 프로젝트를 생성하고 싶다면 별도의 폴더를 만들어 그 경로를 지정하여 `docfx init`을 실행하면 됩니다.
+~~~
+mkdir DocFX
+cd DocFx
+docfx init
+~~~
+
+
+
+## toc.yml
 사이트 목차는 YAML 파일(.yml)로 관리됩니다. `docfx init`후 두 위치에서 `toc.yml` 파일을 볼 수 있습니다.
 
 - 워킹 디렉토리 루트의 toc.yml
@@ -152,6 +161,12 @@ docfx.json 파일 위치를 지정해서 `--serve` 명령어옵션을 사용합�
 docfx docfx.json --serve
 ~~~
 
+> 본 레포지토리처럼 git root가 아닌 별도의 폴더(DocFX)안에서 만들었다면 다음처럼 경로를 포함하거나 이동해서 빌드&런을 실행합다
+> ```
+> docfx DocFX/docfx.json --serve
+> ```
+
+
 이 명령어는 다음 작업을 수행합니다:
 1.	문서 빌드:
     - docfx.json에 정의된 설정을 기반으로 소스 파일(Markdown, 코드 주석 등)을 읽어 HTML 문서로 빌드합니다.
@@ -160,6 +175,14 @@ docfx docfx.json --serve
     - 빌드된 HTML 문서를 로컬 웹 서버에서 바로 볼 수 있도록 실행합니다.
     - 기본적으로 [http://localhost:8080](http://localhost:8080)에서 빌드된 문서를 확인할 수 있습니다.
 
+![](./img/DocFx%20run%20in%20vs%20code.png)
+
+init 직후에는  DocFX가 만드는 기본 페이지 두가지 레이아웃만 구성되어있습니다. 사이트 루트인 홈페이지(`/index.html`)와 문서페이지(`/docs/ 하위`) 레이아웃이 그것입니다.
+
+이러한 사이트 레이아웃과 내비게이션 메뉴바, 검색박스등은 테마와 템플릿으로 구성되며 커스텀 레이아웃으로 직접 구성할 수도 있습니다.
+
+
+## 배포
 빌드된 결과물 (`_site` 폴더 내용물)을 Github Pages 또는 S3, 웹서버가 설치된  서버등에 배포하면 됩니다.
 
 ## 의존성 관리
