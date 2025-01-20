@@ -1,0 +1,33 @@
+#  OS created files: ############
+## Ignore Windows system files
+Thumbs.db
+Desktop.ini
+## macOS folder settings
+.DS_Store
+# From DocFX Official: ##########
+bin
+obj
+drop
+temp
+node_modules
+.vs
+.vscode
+_site
+_site_pdf
+docs/api
+samples/**/api
+src/Docfx.App/templates
+test/**/TestResults
+
+*.user
+*.log
+*.cache
+*.received.*
+*.diff.*
+.settings
+.idea
+launchSettings.json
+*.sublime-workspace
+*.nuget.targets
+*.code-workspace
+*.binlog
