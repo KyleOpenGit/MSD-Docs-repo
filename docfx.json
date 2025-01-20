@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "MESCADA \uC2A4\uD329\uD1A0\uB9AC \uC2DC\uC2A4\uD15C",
+      "_appTitle": "MESCADA \uC2A4\uD329\uD1A0\uB9AC \uC2DC\uC2A4\uD15C",
+      "_enableSearch": true,
+      "pdf": false
+    }
+  }
+}

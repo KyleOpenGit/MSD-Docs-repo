@@ -86,7 +86,7 @@ dotnet tool update -g docfx
 ~~~
 
 
-## DocFX 프로젝트 생성 (문서소스코드 패키지) 및 프로젝트 구조
+## docfx init - DocFX 프로젝트 생성 및 프로젝트 구조
 프로젝트를 초기화할 때 `docfx init` 명령어를 사용합니다. 
 
 원하는 폴더를 DocFX 프로젝트 디렉토리(working directory)로 만들려면 원하는 폴더 위치에서:
@@ -94,7 +94,7 @@ dotnet tool update -g docfx
 docfx init
 ~~~
 
-docfx init을 실행하면 다음과 같은 기본 폴더와 파일이 생성됩니다:
+`docfx init`을 실행하면 다음과 같은 기본 폴더와 파일이 생성됩니다:
 - docfx.json:
     - DocFX의 기본 구성 파일로, 빌드와 문서화에 필요한 설정이 포함됩니다.
         - Node.js 패키지의 package.json과 같은 구성 파일입니다.
@@ -108,7 +108,41 @@ docfx init을 실행하면 다음과 같은 기본 폴더와 파일이 생성됩
 - index.md:
     - 문서의 기본 페이지를 정의합니다 (홈/루트/랜딩 페이지같은 이름으로 불리기도 합니다.)
 
+`docfx init` 실행시 질문답변에 따라 `docfx.json`의 내용을 구성해줍니다:
+
+![docfx init 명령 실행](./img/docfx-init.png)
+
+- Name: 
+  - 사이트 타이틀
+- Generate .NET API documentation?:
+  - C# .NET 프로젝트의 Class/Method API 문서 생성여부.닷넷 프로젝트일경우 API 문서 페이지 또한 구성하려면 `y` 입력.  `n` 선택 후 차후 직접 구성가능.
+- Enable site search?:
+  - 문서 사이트의 검색 기능 추가 하려면 `y` 선택
+- Enable PDF?:  **Node.js 환경 필요**
+  - 다운로드 가능한 PDF 파일 생성 기능 활성화 여부. `y` 선택시 PDF 관련 설정이 추가
+  - 내부적으로 wkhtmltopdf라는 도구사용:
+    1.	HTML 문서를 기반으로 PDF 변환.
+	2.	변환된 PDF 파일이 지정된 출력 폴더에 생성됨.
+
+다음과같은 구조가 됩니다:
+![docfx init 이후 폴더구조](./img/docfx-init-after.png)
+
+### toc.yml
+사이트 목차는 YAML 파일(.yml)로 관리됩니다. `docfx init`후 두 위치에서 `toc.yml` 파일을 볼 수 있습니다.
+
+- 워킹 디렉토리 루트의 toc.yml
+  - 루트의 toc.yml은 **사이트의 전역 목차(Table of Contents)**를 정의하는 파일입니다.
+  -	이 파일은 사이트의 최상위 계층을 관리하며, 주로 전체 사이트의 구조를 정의합니다.
+  -보통은 주요 섹션이나 폴더(예: API 문서, 일반 문서 등)를 나열하는 데 사용됩니다.
+
+- docs 디렉토리의 toc.yml
+  - docs 폴더 안의 toc.yml은 하위 섹션의 목차를 정의하는 파일입니다.
+  - 이 파일은 docs 폴더 내부의 Markdown 파일들을 어떻게 구성할지 설정합니다.
+  - docfx.json에서 build.content로 지정한 경로에 따라, 이 파일이 빌드 시 각 Markdown 파일의 계층 구조를 정의하는 데 사용됩니다.
+
 ## 빌드 & 런
+DocFX로 빌드하면 init 당시 지정한 폴더(`docs`) 하위의 `.md` 파일들을 html로 변환하여 `_site` 폴더를 생성합니다.
+
 docfx.json 파일 위치를 지정해서 `--serve` 명령어옵션을 사용합니다.
 
 > `docfx {/경로/docfx.json} --serve`
@@ -125,6 +159,8 @@ docfx docfx.json --serve
 2.	로컬 서버 실행:
     - 빌드된 HTML 문서를 로컬 웹 서버에서 바로 볼 수 있도록 실행합니다.
     - 기본적으로 [http://localhost:8080](http://localhost:8080)에서 빌드된 문서를 확인할 수 있습니다.
+
+빌드된 결과물 (`_site` 폴더 내용물)을 Github Pages 또는 S3, 웹서버가 설치된  서버등에 배포하면 됩니다.
 
 ## 의존성 관리
 
